@@ -4,16 +4,14 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const path = require('path');
 const opn = require('opn');
-
-
 const Server = express();
-const SALT_ROUNDS = 10; 
+const SALT_ROUNDS = 10;
 
 // Database connection
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'root1234',
+  password: 'root123',
   database: 'pollpower'
 });
 
@@ -43,7 +41,11 @@ Server.get('/voting-panel', (req, res) => {
 
 // Get Candidates
 Server.get('/candidates', (req, res) => {
-  const sql = 'SELECT * FROM candidates';
+  const sql = `
+    SELECT candidates.candidate_id, candidates.name, candidates.age, vote_count.vote_count
+    FROM candidates
+    LEFT JOIN vote_count ON candidates.candidate_id = vote_count.candidate_id
+  `;
   db.query(sql, (err, results) => {
     if (err) {
       console.error('Error fetching candidates:', err);
@@ -223,16 +225,14 @@ Server.post('/adminlogin', (req, res) => {
       return res.status(400).send('Incorrect password');
     }
 
-    // Passwords match - Redirect to Admin add and remove.html
-    res.redirect('/Admin add and remove.html');
+    // Passwords match - Redirect to Voting panel
+    res.redirect('/Voting panel.html');
   });
 });
 
-
+// Start the server
 const PORT = 3000;
 Server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  
-  // Open the default web browser automatically
+  console.log(`Server running on port ${PORT}`);
   opn(`http://localhost:${PORT}`);
 });

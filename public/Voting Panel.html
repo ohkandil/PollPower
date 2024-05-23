@@ -22,10 +22,10 @@
             const candidateList = document.getElementById('candidate-list');
             candidates.forEach(candidate => {
                 const listItem = document.createElement('li');
-                listItem.innerHTML = `<input type="radio" name="candidate_id" value="${candidate.candidate_id}" required> ${candidate.name}`;
+                listItem.innerHTML = `<input type="radio" name="candidate_id" value="${candidate.candidate_id}" required> ${candidate.name} - Votes: ${candidate.vote_count}`;
                 candidateList.appendChild(listItem);
             });
         });
     </script>
 </body>
-</html
+</html>
