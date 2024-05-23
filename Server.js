@@ -35,6 +35,66 @@ Server.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'Poll Power.html'));
 });
 
+// Serve Voting Panel
+Server.get('/voting-panel', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'Voting panel.html'));
+});
+
+// Get Candidates
+Server.get('/candidates', (req, res) => {
+  const sql = 'SELECT * FROM candidates';
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.error('Error fetching candidates:', err);
+      return res.status(500).send('Error fetching candidates');
+    }
+    res.json(results);
+  });
+});
+
+// Submit Vote
+Server.post('/submit-vote', (req, res) => {
+  const { passportId, candidate_id, confirm } = req.body;
+
+  if (!passportId || !candidate_id || !confirm) {
+    return res.status(400).send('Please provide all required information');
+  }
+
+  // Check if the user has already voted
+  const checkVoteSql = 'SELECT * FROM votes WHERE passportId = ?';
+  db.query(checkVoteSql, [passportId], (err, results) => {
+    if (err) {
+      console.error('Error checking existing vote:', err);
+      return res.status(500).send('Error checking existing vote');
+    }
+
+    if (results.length > 0) {
+      return res.status(400).send('User has already voted');
+    }
+
+    // Insert vote into votes table
+    const sql = 'INSERT INTO votes (passportId, candidate_id) VALUES (?, ?)';
+    db.query(sql, [passportId, candidate_id], (err, result) => {
+      if (err) {
+        console.error('Error inserting vote into database:', err);
+        return res.status(500).send('Error submitting vote');
+      }
+
+      // Update vote count
+      const updateVoteCountSql = 'UPDATE vote_count SET vote_count = vote_count + 1 WHERE candidate_id = ?';
+      db.query(updateVoteCountSql, [candidate_id], (err, updateResult) => {
+        if (err) {
+          console.error('Error updating vote count:', err);
+          return res.status(500).send('Error updating vote count');
+        }
+
+        console.log('Vote submitted and vote count updated');
+        res.redirect('/Rules.html');
+      });
+    });
+  });
+});
+
 // Registration Route
 Server.post('/register', (req, res) => {
   const { fullName, dob, passportId, email, mobile, password, residence } = req.body;
@@ -137,32 +197,11 @@ Server.post('/adminlogin', (req, res) => {
   });
 });
 
+
 const PORT = 3000;
 Server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   
   // Open the default web browser automatically
   opn(`http://localhost:${PORT}`);
-});
-
-// Add candidate Route
-Server.post('/Admin add and remove.html', (req, res) => {
-  // Extract candidate details from request body
-  const candidate = req.body;
-
-  // Add the candidate to your data store
-  // This will depend on how you're storing your data
-  // For example, if you're using a database, you could do:
-  const sql = 'INSERT INTO candidates (name, party) VALUES (?, ?)';
-  db.query(sql, [candidate.name, candidate.party], (err, result) => {
-    if (err) {
-      console.error('Error inserting candidate into database:', err);
-      return res.status(500).send('Error adding candidate');
-    }
-
-    console.log('Candidate added with ID:', result.insertId);
-
-    // Send a response back to the client
-    res.send('Candidate added successfully');
-  });
 });

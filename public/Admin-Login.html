@@ -17,32 +17,10 @@
             <p class="input-headings"> Password</p>
             <input type="password" class="inputs" name="password" required>
             <li>
-            <ul><button type="submit" class="button2">Login</button></ul>
-            <ul><a href="Contact Support.html" >contact support</a></ul>
-            
+            <a href="Contact Support.html" class="button2">contact supports</a>
+            <button type="submit" class="button2">Login</button>
             </li>
         </form>
     </Div>
 </body>
-<script>
-    function editCandidate(candidateId) {
-        var candidate = document.getElementById(candidateId);
-        var newName = prompt("Please enter the new name for the candidate:", candidate.textContent);
-        if (newName != null) {
-            candidate.textContent = newName;
-        }
-    }
-    
-    function removeCandidate(candidateId) {
-        var candidate = document.getElementById(candidateId);
-        candidate.parentNode.removeChild(candidate);
-    }
-    </script>
-    <form action="/add-candidate" method="post">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name"><br>
-        <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email"><br>
-        <input type="submit" value="Add Candidate">
-    </form>
 </html>

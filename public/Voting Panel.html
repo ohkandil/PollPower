@@ -2,17 +2,30 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Voting panel </title>
+    <title>Voting panel</title>
     <link rel="stylesheet" type="text/css" href="Styles6.css">
 </head>
 <body>
     <img id="Main-logo" src="Logo2.png">
-    <H1>voting panel</H1>
-<ul>
-    <li><input type="checkbox" name="agree"> Candidate 1</li>
-    <li> <input type="checkbox" name="agree">Candidate 2</li>
-    <li> <input type="checkbox" name="agree">Candidate 3</li>
-</ul>
-<p><label><input type="checkbox" name="agree">I am sure about the candiadte i picked to vote </p></label>
-<a href="" class="button">Submit</a>
+    <h1>Voting panel</h1>
+    <form action="/submit-vote" method="POST">
+        <ul id="candidate-list">
+            <!-- Candidates will be populated here by the server -->
+        </ul>
+        <p><label><input type="checkbox" name="confirm" required>I am sure about the candidate I picked to vote</label></p>
+        <button type="submit" class="button">Submit</button>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const response = await fetch('/candidates');
+            const candidates = await response.json();
+            const candidateList = document.getElementById('candidate-list');
+            candidates.forEach(candidate => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<input type="radio" name="candidate_id" value="${candidate.candidate_id}" required> ${candidate.name}`;
+                candidateList.appendChild(listItem);
+            });
+        });
+    </script>
 </body>
+</html
