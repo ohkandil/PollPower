@@ -1,0 +1,106 @@
+* {
+    box-sizing: border-box;
+    
+}
+body {
+    background-color: #292A48;
+    margin: 0;
+    padding: 0;
+}
+
+
+.white{
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    width: 100vw;
+    height: 175px;
+    display: inline-block;
+}
+
+#Main-logo{
+    width: 100px;
+    height: 100px;
+    margin-left: 150px;
+    margin-top: 30px;
+    
+    
+}
+h1{
+    margin-top: 0px;
+    padding-left: 400px;
+    display: inline-block;
+}
+
+.Forget{
+    margin-top: 150px;
+}
+p{
+    color: white;
+
+    text-align: center;
+    font-size: 18px;
+}
+.input-headings{
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+
+.inputs{
+    width: 30%;
+    height: 35px;
+    margin-left: 550px ;
+}
+.reasons{
+    width: 30%;
+    height: 130px;
+    margin-left: 550px ;
+
+}
+a {
+    text-align: center;
+    display: block;
+    padding: 15px;
+}
+
+a:visited {
+    color: #007bff;
+}
+
+.button {
+    display: block;
+    padding: 10px 20px;
+    background-color: #015FC7;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    margin-top: 70px;
+    margin-left: 670px;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+}
+
+.button:visited{
+    display: block;
+    padding: 10px 20px;
+    background-color: #015FC7;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    margin-top: 140px;
+    margin-left: 670px;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+
+}

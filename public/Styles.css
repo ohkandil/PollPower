@@ -1,0 +1,102 @@
+* {
+    box-sizing: border-box;
+    
+}
+body {
+    background-color: #292A48;
+    margin: 0;
+    padding: 0;
+}
+
+.white{
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    width: 30%;
+    height: 100vh;
+    display: inline-block;
+}
+#Main-logo{
+    margin-top: 150px;
+    margin-left: 75px;
+    width: 100px;
+    height: 100px;
+    
+}
+
+.login{
+        width: 50%; 
+        display: inline-block;
+        margin-left: 100px;
+        margin-top: 20px;
+        color: white;
+        position:absolute;
+    }
+h1{
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-bottom: 20px ;
+}
+.input-headings{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+}
+
+.inputs{
+    width: 75%;
+    height: 30px;
+}
+li{
+    list-style-type: none;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.hyperlinks{
+    margin-bottom: 20px;
+}
+.links{
+    display: inline;
+}
+
+a:visited {
+    color: #007bff; 
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #015FC7;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    margin-left: 200px;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+}
+.button2 {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #015FC7;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    position: relative;
+    margin-top: 20px;
+    
+    width: 200px;
+    height: 50px;
+    text-align: center;
+}
+
+.button:visited{
+    color: white;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poll Power</title>
+    <link rel="stylesheet" type="text/css" href="Styles2.css">
+    <style>
+        .notification {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #d6e9c6;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Poll Power</h1>
+    <img id="Main-logo" src="Logo2.png">
+    <h1>Registration Form</h1>
+    <form action="/register" method="POST">
+        <p class="input-headings">Full Name</p>
+        <input type="text" class="inputs" name="fullName" required>
+        <p class="input-headings">Date of Birth</p>
+        <input type="date" class="inputs" name="dob" required>
+        <p class="input-headings">Passport/ National ID</p>
+        <input type="text" class="inputs" name="passportId" required>
+        <p class="input-headings">Email</p>
+        <input type="email" class="inputs" name="email" required>
+        <p class="input-headings">Mobile No.</p>
+        <input class="inputs" type="text" name="mobile" required>
+        <p class="input-headings">Password</p>
+        <input class="inputs" type="password" name="password" required>
+        <p class="input-headings">Current Residence</p>
+        <input type="text" class="inputs" name="residence" required>
+        <button type="submit" class="button">Submit</button>
+    </form>
+</body>
+
+</html>

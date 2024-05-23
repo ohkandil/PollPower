@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login - Poll Power</title>
+    <link rel="stylesheet" type="text/css" href="Styles.css">
+</head>
+<body>
+    <DIV class="white"> 
+        <img id="Main-logo" src="Logo2.png">
+    </DIV>
+    <Div class="login">
+        <h1>Admin Login</h1>
+        <form action="/adminlogin" method="POST">
+            <p class="input-headings"> Admin ID</p>
+            <input type="text" class="inputs" name="admin_id" required>
+            <p class="input-headings"> Password</p>
+            <input type="password" class="inputs" name="password" required>
+            <li>
+            <ul><button type="submit" class="button2">Login</button></ul>
+            <ul><a href="Contact Support.html" >contact support</a></ul>
+            
+            </li>
+        </form>
+    </Div>
+</body>
+<script>
+    function editCandidate(candidateId) {
+        var candidate = document.getElementById(candidateId);
+        var newName = prompt("Please enter the new name for the candidate:", candidate.textContent);
+        if (newName != null) {
+            candidate.textContent = newName;
+        }
+    }
+    
+    function removeCandidate(candidateId) {
+        var candidate = document.getElementById(candidateId);
+        candidate.parentNode.removeChild(candidate);
+    }
+    </script>
+    <form action="/add-candidate" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <input type="submit" value="Add Candidate">
+    </form>
+</html>
