@@ -5,14 +5,15 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const opn = require('opn');
 
+
 const Server = express();
-const SALT_ROUNDS = 10; // Define the cost factor for bcrypt
+const SALT_ROUNDS = 10; 
 
 // Database connection
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'root123',
+  password: 'root1234',
   database: 'pollpower'
 });
 
@@ -49,6 +50,36 @@ Server.get('/candidates', (req, res) => {
       return res.status(500).send('Error fetching candidates');
     }
     res.json(results);
+  });
+});
+
+// Add Candidate
+Server.post('/add-candidate', (req, res) => {
+  const { name, age } = req.body;
+  const sql = 'INSERT INTO candidates (name, age) VALUES (?, ?)';
+  db.query(sql, [name, age], (err, result) => {
+    if (err) {
+      console.error('Error adding candidate:', err);
+      return res.status(500).send('Error adding candidate');
+    }
+    const newCandidate = { candidate_id: result.insertId, name, age };
+    res.json(newCandidate);
+  });
+});
+
+// Remove Candidate
+Server.delete('/remove-candidate/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = 'DELETE FROM candidates WHERE candidate_id = ?';
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error('Error removing candidate:', err);
+      return res.status(500).send('Error removing candidate');
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).send('Candidate not found');
+    }
+    res.sendStatus(204);
   });
 });
 

@@ -2,19 +2,69 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Removing and Adding candadits </title>
+    <title>Removing and Adding Candidates</title>
     <link rel="stylesheet" type="text/css" href="Styles5.css">
 </head>
 <body>
-    <DIV class="white"> 
+    <div class="white"> 
         <img id="Main-logo" src="Logo2.png">
         <h1>Candidates list</h1>
-    </DIV>
+    </div>
     <ul id="candidates-list">
-        <li id="candidate1"> Candidate 1 <button onclick="editCandidate('candidate1')">Edit</button> <button onclick="removeCandidate('candidate1')">Remove</button></li>
-        <li id="candidate2"> Candidate 2 <button onclick="editCandidate('candidate2')">Edit</button> <button onclick="removeCandidate('candidate2')">Remove</button></li>
-        <li id="candidate3"> Candidate 3 <button onclick="editCandidate('candidate3')">Edit</button> <button onclick="removeCandidate('candidate3')">Remove</button></li>
+        <!-- Candidates will be populated here by the server -->
     </ul>
-    <a href="" class="button1">add</a>
-    <a href="" class="button2">remove</a>
+    <form id="add-candidate-form">
+        <h2>Add New Candidate</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+        <button type="submit">Add Candidate</button>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Fetch and display the candidates
+            const response = await fetch('/candidates');
+            const candidates = await response.json();
+            const candidateList = document.getElementById('candidates-list');
+            candidates.forEach(candidate => {
+                const listItem = document.createElement('li');
+                listItem.id = `candidate-${candidate.candidate_id}`;
+                listItem.innerHTML = `${candidate.name} (Age: ${candidate.age}) <button onclick="removeCandidate(${candidate.candidate_id})">Remove</button>`;
+                candidateList.appendChild(listItem);
+            });
+        });
+
+        // Function to remove a candidate
+        async function removeCandidate(candidateId) {
+            const response = await fetch(`/remove-candidate/${candidateId}`, { method: 'DELETE' });
+            if (response.ok) {
+                document.getElementById(`candidate-${candidateId}`).remove();
+            } else {
+                alert('Failed to remove candidate');
+            }
+        }
+
+        // Form submission for adding a new candidate
+        document.getElementById('add-candidate-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/add-candidate', {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData)),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            if (response.ok) {
+                const newCandidate = await response.json();
+                const candidateList = document.getElementById('candidates-list');
+                const listItem = document.createElement('li');
+                listItem.id = `candidate-${newCandidate.candidate_id}`;
+                listItem.innerHTML = `${newCandidate.name} (Age: ${newCandidate.age}) <button onclick="removeCandidate(${newCandidate.candidate_id})">Remove</button>`;
+                candidateList.appendChild(listItem);
+            } else {
+                alert('Failed to add candidate');
+            }
+        });
+    </script>
 </body>
+</html>
